@@ -4,7 +4,7 @@ public:
         int n=coins.size();
         vector<vector<int>>dp(n,vector<int>(amount+1,1e9));
         for(int i=0;i<=amount;i++){
-        if((amount%coins[0])==0){
+        if((i%coins[0])==0){
             dp[0][i]=(i/coins[0]);
         }
         }
