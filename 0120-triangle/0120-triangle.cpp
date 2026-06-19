@@ -1,26 +1,24 @@
 class Solution {
 public:
     int minimumTotal(vector<vector<int>>& triangle) {
-        int n = triangle.size();
+        int n= triangle.size();
+        vector<vector<int>>dp(n,vector<int>(n,0));
 
-        vector<vector<int>> dp(n, vector<int>(n, 0));
-
-        // Base case: copy the last row
-        for(int j = 0; j < n; j++) {
-            dp[n-1][j] = triangle[n-1][j];
+        for(int j=0;j<n;j++){
+            dp[n-1][j]=triangle[n-1][j];
         }
 
-        // Move from bottom to top
-        for(int i = n - 2; i >= 0; i--) {
-            for(int j = i; j >= 0; j--) {
+        for(int i=n-2;i>=0;i--){
+            for(int j=i;j>=0;j--){
+                int up=1e9;
+                int dia=1e9;
 
-                int down = triangle[i][j] + dp[i+1][j];
-                int diagonal = triangle[i][j] + dp[i+1][j+1];
+                up=dp[i+1][j]+triangle[i][j];
+                dia=dp[i+1][j+1]+triangle[i][j];
 
-                dp[i][j] = min(down, diagonal);
+                dp[i][j]=min(up,dia);
             }
         }
-
         return dp[0][0];
     }
 };
