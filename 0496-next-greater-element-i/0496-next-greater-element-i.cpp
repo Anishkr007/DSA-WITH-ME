@@ -8,7 +8,7 @@ public:
 
         for(int i=n-1;i>=0;i--){
 
-            while(!st.empty() && st.top()<nums2[i]){
+            while(!st.empty() && st.top()<=nums2[i]){
                 st.pop();
             }
 
