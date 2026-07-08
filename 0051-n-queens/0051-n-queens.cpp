@@ -1,38 +1,62 @@
 class Solution {
 public:
-    vector<vector<string>> ans; 
+    bool issafe(int row,int col,vector<string>&board,int n){
+        int r=row;
+        int c=col;
 
-    void solve(int row,vector<string>&board,vector<int>&leftrow,vector<int>&leftdia,vector<int>&rightdia,int n){
-        if(row==n){
+        while(c>=0){
+            if(board[r][c]=='Q'){
+                return false;
+            }
+            c--;
+        }
+         r=row;
+         c=col;
+
+        while(r>=0 && c>=0){
+            if(board[r][c]=='Q'){
+                return false;
+            }
+            c--;
+            r--;
+        }
+         r=row;
+         c=col;
+            while(r<n && c>=0){
+            if(board[r][c]=='Q'){
+                return false;
+            }
+            c--;
+            r++;
+        }
+
+        return true;
+
+        
+        
+    }
+    void solve(int col,vector<string>&board,vector<vector<string>>&ans,int n){
+        if(col==n){
             ans.push_back(board);
             return;
         }
-
-        for(int col=0;col<n;col++){
-            if(leftrow[col]==0 && leftdia[col+row]==0 && rightdia[n-1+col-row]==0){
+        for(int row=0;row<n;row++){
+            if(issafe(row,col,board,n)){
                 board[row][col]='Q';
 
-                leftrow[col]=1;
-                leftdia[col+row]=1;
-                rightdia[n-1+col-row]=1;
-
-                solve(row+1,board,leftrow,leftdia,rightdia,n);
+                solve(col+1,board,ans,n);
 
                 board[row][col]='.';
-                leftrow[col]=0;
-                leftdia[col+row]=0;
-                rightdia[n-1+col-row]=0;
             }
+
         }
     }
     vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>ans;
+
         vector<string>board(n,string(n,'.'));
 
-        vector<int>leftrow(n,0);
-        vector<int>leftdia(2*n-1,0);
-        vector<int>rightdia(2*n-1,0);
-
-        solve(0,board,leftrow,leftdia,rightdia,n);
+        solve(0,board,ans,n);
 
         return ans;
     }
