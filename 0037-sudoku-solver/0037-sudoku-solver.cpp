@@ -1,54 +1,41 @@
 class Solution {
 public:
+bool isvalid(vector<vector<char>>&board,int row,int col,char c){
+    for(int i=0;i<9;i++){
+        if(board[i][col]==c)
+         return false;
 
-    bool isValid(vector<vector<char>>& board, int row, int col, char num) {
+         if(board[row][i]==c){
+            return false;
+         }
 
-        // Check Row
-        for (int j = 0; j < 9; j++) {
-            if (board[row][j] == num)
-                return false;
-        }
+         if(board[(3*(row/3)+i/3)][3*(col/3)+i%3]==c){
+            return false;
+         }
 
-        // Check Column
-        for (int i = 0; i < 9; i++) {
-            if (board[i][col] == num)
-                return false;
-        }
+         
 
-        // Check 3x3 Box
-        int startRow = (row / 3) * 3;
-        int startCol = (col / 3) * 3;
-
-        for (int i = startRow; i < startRow + 3; i++) {
-            for (int j = startCol; j < startCol + 3; j++) {
-                if (board[i][j] == num)
-                    return false;
-            }
-        }
-
-        return true;
     }
+    return true;
 
-    bool solve(vector<vector<char>>& board) {
+    
 
-        // Find an empty cell
-        for (int row = 0; row < 9; row++) {
 
-            for (int col = 0; col < 9; col++) {
+}
+    bool solve(vector<vector<char>>& board){
+        for(int row=0;row<board.size();row++){
+            for(int col=0;col<board[0].size();col++){
+                if(board[row][col]=='.'){
+                    for(char c='1';c<='9';c++){
+                        if(isvalid(board,row,col,c)){
+                            board[row][col]=c;
 
-                if (board[row][col] == '.') {
-
-                    // Try digits 1 to 9
-                    for (char num = '1'; num <= '9'; num++) {
-
-                        if (isValid(board, row, col, num)) {
-
-                            board[row][col] = num;
-
-                            if (solve(board))
+                            if(solve(board)){
                                 return true;
-
-                            board[row][col] = '.';
+                            }
+                            
+                            board[row][col]='.';
+                            
                         }
                     }
 
@@ -56,12 +43,9 @@ public:
                 }
             }
         }
-
         return true;
     }
-
     void solveSudoku(vector<vector<char>>& board) {
-
         solve(board);
     }
 };
