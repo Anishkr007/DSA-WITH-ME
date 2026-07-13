@@ -14,13 +14,19 @@ public:
     int minDepth(TreeNode* root) {
         if(root==NULL) return 0;
 
-       int minleft=minDepth(root->left);
-        int minright=minDepth(root->right);
+        int left=minDepth(root->left);
 
-        if(root->left==NULL) return 1+minright;
+        int right=minDepth(root->right);
 
-        if(root->right==NULL) return 1+minleft;
+        if(root->right==NULL){
+            return 1+left;
+        }
 
-        return 1+min(minleft,minright);
+        if(root->left==NULL){
+            return 1+right;
+        }
+
+
+        return 1+min(left,right);
     }
 };
