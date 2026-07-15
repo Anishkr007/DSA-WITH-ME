@@ -13,7 +13,7 @@ class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
        int answer;
-       if(root==NULL) return NULL;
+       if(root==NULL) return 0;
 
        queue<TreeNode*>q;
        q.push(root);
