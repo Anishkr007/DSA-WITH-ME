@@ -1,40 +1,37 @@
 class Solution {
 public:
-    void dfs(int r,int c,vector<vector<int>>&newMat,int oldcolor,int color){
-        int n=newMat.size();
+    void dfs(int row,int col, int oldcolor,int color,vector<vector<int>>& image){
+        int n=image.size();
+        int m=image[0].size();
 
-        int m=newMat[0].size();
+        int delrow[]={-1,0,0,1};
+        int delcol[]={0,-1,1,0};
 
-        newMat[r][c]=color;
-
-        int dr[4]={1,-1,0,0};
-        int dc[4]={0,0,-1,1};
+        image[row][col]=color;
 
         for(int i=0;i<4;i++){
-           int nr=r+dr[i];
-            int nc=c+dc[i];
+            int nr=row+delrow[i];
+            int nc=col+delcol[i];
 
-            if(nr>=0 && nc >=0 && nr<n && nc < m && newMat[nr][nc]==oldcolor){
-
-                dfs(nr,nc,newMat,oldcolor,color);
+            if(nr>=0 && nc>= 0 && nr<n && nc<m && image[nr][nc]==oldcolor){
+                dfs(nr,nc,oldcolor,color,image);
             }
-
-
         }
 
 
     }
-
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        vector<vector<int>> newMat=image;
+        int n=image.size();
+        int m=image[0].size();
 
-        int oldcolor=newMat[sr][sc];
+        if(image[sr][sc]==color){
+            return image;
+        }
 
+        int oldcolor=image[sr][sc];
 
-        if(oldcolor==color) return newMat;
+        dfs(sr,sc,oldcolor,color,image);
 
-        dfs(sr,sc,newMat,oldcolor,color);
-
-        return newMat;
+        return image;
     }
 };
