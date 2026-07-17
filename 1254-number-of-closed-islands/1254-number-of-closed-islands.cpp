@@ -6,14 +6,26 @@ public:
 
         int delrow[]={-1,0,0,1};
         int delcol[]={0,-1,1,0};
+
+        queue<pair<int,int>> q;
+        q.push({x,y});
+
         grid[x][y]=1;
 
-        for(int i=0;i<4;i++){
-            int nx=x+delrow[i];
-            int ny=y+delcol[i];
+        while(!q.empty()){
+            int a=q.front().first;
+            int b=q.front().second;
 
-            if(nx>=0 && ny>=0 && nx<n && ny<m && grid[nx][ny]==0){
-                dfs(nx,ny,grid);
+            q.pop();
+
+            for(int i=0;i<4;i++){
+                int nx=a+delrow[i];
+                int ny=b+delcol[i];
+
+                if(nx>=0 && ny>=0 && nx<n && ny<m && grid[nx][ny]==0){
+                    grid[nx][ny]=1;
+                    q.push({nx,ny});
+                }
             }
         }
     }
