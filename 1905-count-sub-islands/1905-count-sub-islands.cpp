@@ -20,7 +20,7 @@ public:
             int nc=c+delcol[i];
 
             if(nr>=0 && nc>=0 && nr< n && nc < m && grid2[nr][nc]==1){
-                valid&=dfs(nr,nc,grid1,grid2);
+                valid=valid&dfs(nr,nc,grid1,grid2);
             }
         }
 
