@@ -4,9 +4,10 @@ public:
         int n=nums.size();
         vector<int>ans(2*n);
 
-        for(int i=0;i<2*n;i++){
-           int j=i%n;
-            ans[i]=nums[j];
+        for(int i=0;i<n;i++){
+           
+            ans[i]=nums[i];
+            ans[i+n]=nums[i];
         }
 
         return ans;
