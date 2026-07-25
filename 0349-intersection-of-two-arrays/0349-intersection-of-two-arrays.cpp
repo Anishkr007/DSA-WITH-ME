@@ -9,10 +9,12 @@ public:
         int m=nums2.size();
         sort(nums1.begin(),nums1.end());
         sort(nums2.begin(),nums2.end());
-        set<int>st;
+        vector<int>ans;
         while(i<n && j<m){
             if(nums1[i]==nums2[j]){
-                st.insert(nums1[i]);
+                if(ans.empty() || ans.back()!=nums1[i]){
+                    ans.push_back(nums1[i]);
+                }
                 i++;
                 j++;
             }else if(nums1[i]>nums2[j]){
@@ -22,9 +24,7 @@ public:
             }
         }
 
-        vector<int>V(st.begin(),st.end());
-
-        return V;
+        return ans;;
 
 
     }
