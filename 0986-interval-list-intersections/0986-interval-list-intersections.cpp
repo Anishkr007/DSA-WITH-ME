@@ -10,6 +10,8 @@ public:
 
         vector<vector<int>>ans;
 
+        if(n==0 || m==0) return ans;
+
         while(i<n && j< m){
             int start=max(firstList[i][0],secondList[j][0]);
             int last=min(firstList[i][1],secondList[j][1]);
