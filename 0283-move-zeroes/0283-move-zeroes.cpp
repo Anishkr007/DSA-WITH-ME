@@ -1,30 +1,25 @@
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>ans;
 
-        int j = -1;
+        for(auto x : nums){
+            if(x!=0){
+            ans.push_back(x);
 
-        // Find first zero
-        for(int i = 0; i < nums.size(); i++) {
-
-            if(nums[i] == 0) {
-                j = i;
-                break;
             }
         }
 
-        // No zero present
-        if(j == -1) return;
-
-        // Move non-zero elements forward
-        for(int i = j + 1; i < nums.size(); i++) {
-
-            if(nums[i] != 0) {
-
-                swap(nums[i], nums[j]);
-
-                j++;
-            }
+         while(ans.size() < nums.size()){
+            ans.push_back(0);
         }
+
+        for(int i=0;i<n;i++){
+            nums[i]=ans[i];
+        }
+        
+
+        
     }
 };
