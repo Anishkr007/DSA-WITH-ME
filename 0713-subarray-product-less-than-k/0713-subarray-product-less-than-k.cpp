@@ -6,11 +6,12 @@ public:
         int ans=0;
         long long pro=1;
 
+        if(k<=1) return 0;
 
         for(int right=0;right<nums.size();right++){
             pro=pro*nums[right];
 
-            while(pro>k){
+            while(pro>=k){
                 pro/=nums[left];
                 left++;
             }
