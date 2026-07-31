@@ -1,23 +1,24 @@
 class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        map<int,int>mp;
 
-        map<int,int> loss;
-
-        for(auto &x : matches){
-            loss[x[0]] += 0;
-            loss[x[1]]++;
+        for(auto x : matches){
+            mp[x[0]]+=0;
+            mp[x[1]]++;
         }
 
-        vector<int> zero, one;
+        vector<int> zero,first;
 
-        for(auto &x : loss){
-            if(x.second == 0)
+        for(auto x : mp){
+            if(x.second==0){
                 zero.push_back(x.first);
-            else if(x.second == 1)
-                one.push_back(x.first);
+
+            }else if(x.second==1){
+                first.push_back(x.first);
+            }
         }
 
-        return {zero, one};
+        return {zero,first};
     }
 };
