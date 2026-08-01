@@ -1,17 +1,20 @@
 class Solution {
 public:
-    int solve(int i,vector<int>&dp){
-        if(i==0) return 0;
-        if(i<=2) return 1;
-
-        if(dp[i]!=-1) return dp[i];
-
-        return dp[i]=solve(i-1,dp)+solve(i-2,dp)+solve(i-3,dp);
-    }
     int tribonacci(int n) {
-        
-        vector<int>dp(n+1,-1);
+        if(n==0) return 0;
+        if(n<=2) return 1;
 
-        return solve(n,dp);
+        int prev3=0;
+        int prev2=1;
+        int prev1=1;
+        int ans=0;
+        for(int i=3;i<=n;i++){
+            ans=prev3+prev2+prev1;
+            prev3=prev2;
+            prev2=prev1;
+            prev1=ans;
+        }
+
+        return prev1;
     }
 };
