@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minimumTotal(vector<vector<int>>& triangle) {
-        int n= triangle.size();
+        int n=triangle.size();
         vector<vector<int>>dp(n,vector<int>(n,0));
 
         for(int j=0;j<n;j++){
@@ -10,14 +10,11 @@ public:
 
         for(int i=n-2;i>=0;i--){
             for(int j=i;j>=0;j--){
-                int up=1e9;
-                int dia=1e9;
+                int down=dp[i+1][j];;
+                int diag=dp[i+1][j+1];
 
-                up=dp[i+1][j]+triangle[i][j];
-                dia=dp[i+1][j+1]+triangle[i][j];
-
-                dp[i][j]=min(up,dia);
-            }
+                dp[i][j]=min(down,diag)+triangle[i][j];
+            } 
         }
         return dp[0][0];
     }
