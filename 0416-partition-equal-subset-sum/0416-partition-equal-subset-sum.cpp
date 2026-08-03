@@ -1,40 +1,43 @@
 class Solution {
 public:
-    bool canPartition(vector<int>& nums) {
+    bool solve(vector<int>&nums,int target){
         int n=nums.size();
-        int totalsum=0;
-        for(auto x : nums){
-            totalsum+=x;
-        }
 
-        if(totalsum%2!=0) return false;
+        vector<vector<bool>>dp(n+1,vector<bool>(target+1,false));
 
-        int target=totalsum/2;
-
-        vector<vector<bool>>dp(n,vector<bool>(target+1,false));
-
-        for(int i=0;i<n;i++){
+        for(int i=0;i<=n;i++){
             dp[i][0]=true;
         }
-        if(nums[0]<=target){
-            dp[0][nums[0]]=true;
-        }
 
-        for(int i=1;i<n;i++){
+        for(int i=1;i<=n;i++){
             for(int j=1;j<=target;j++){
                 bool nottake=dp[i-1][j];
 
                 bool take=false;
 
-                if(nums[i]<=j){
-                    take=dp[i-1][j-nums[i]];
+                if(nums[i-1]<=j){
+                    take=dp[i-1][j-nums[i-1]];
                 }
-                dp[i][j]=nottake||take;
+
+                dp[i][j]=take|| nottake;
             }
         }
+        return dp[n][target];
+    }
+    bool canPartition(vector<int>& nums) {
+        
+        int sum=0;
 
-        return dp[n-1][target];
+        for(int x: nums){
+            sum+=x;
+        }
 
+        if(sum%2){
+            return false;
+        }
 
+        int target=sum/2;
+
+        return solve(nums,target);
     }
 };
