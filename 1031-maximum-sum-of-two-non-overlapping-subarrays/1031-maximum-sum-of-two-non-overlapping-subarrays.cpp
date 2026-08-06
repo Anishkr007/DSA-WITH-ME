@@ -1,31 +1,28 @@
 class Solution {
 public:
-    int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {
+    int solve(vector<int>& nums, int L, int M ){
+        int n=nums.size();
+        vector<int>prefix(n+1,0);
 
-        int n = nums.size();
-        int ans = 0;
+        for(int i=0;i<n;i++){
+            prefix[i+1]=prefix[i]+nums[i];
+        }
 
-        for (int i = 0; i + firstLen - 1 < n; i++) {
+        int bestL=0;
+        int ans=0;
 
-            int sum1 = 0;
+        for(int i=L+M;i<=n;i++){
+            int currentL=prefix[i-M]-prefix[i-M-L];
 
-            for (int k = i; k < i + firstLen; k++)
-                sum1 += nums[k];
+            bestL=max(bestL,currentL);
 
-            for (int j = 0; j + secondLen - 1 < n; j++) {
-
-                if (j + secondLen - 1 < i || j > i + firstLen - 1) {
-
-                    int sum2 = 0;
-
-                    for (int k = j; k < j + secondLen; k++)
-                        sum2 += nums[k];
-
-                    ans = max(ans, sum1 + sum2);
-                }
-            }
+            int currentM=prefix[i]-prefix[i-M];
+            ans=max(ans,currentM+bestL);
         }
 
         return ans;
+    }
+    int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {
+        return max(solve(nums,firstLen,secondLen),solve(nums,secondLen,firstLen));
     }
 };
