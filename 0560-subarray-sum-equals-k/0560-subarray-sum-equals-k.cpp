@@ -1,24 +1,23 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        
         int count=0;
-        int prefix=0;
+        int sum=0;
 
         map<int,int>mp;
-
         mp[0]=1;
 
-        for(int i =0;i<nums.size();i++){
-            prefix+=nums[i];
+        for(int i=0;i<nums.size();i++){
 
-            int remove=prefix-k;
+            sum+=nums[i];
 
-            count+=mp[remove];
+            int rem=sum-k;
 
-            mp[prefix]+=1;
+            count+=mp[rem];
+
+            mp[sum]+=1;
+
         }
-
         return count;
     }
 };
