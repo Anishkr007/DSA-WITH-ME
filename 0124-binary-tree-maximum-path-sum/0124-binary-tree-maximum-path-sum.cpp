@@ -12,7 +12,7 @@
 class Solution {
 public:
     int dfs(TreeNode* root,int &ans){
-        if(root==nullptr) return 0;
+        if(root==NULL) return 0;
 
         int left=max(0,dfs(root->left,ans));
         int right=max(0,dfs(root->right,ans));
@@ -22,10 +22,10 @@ public:
         return root->val+max(left,right);
     }
     int maxPathSum(TreeNode* root) {
+        
         int ans=INT_MIN;
 
         dfs(root,ans);
-
         return ans;
     }
 };
