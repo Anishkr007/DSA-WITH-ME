@@ -1,29 +1,30 @@
 class Solution {
 public:
-    
-    int dfs(int x,int y,vector<vector<int>>& grid){
-        int n=grid.size();
+    int dfs(int r,int c,vector<vector<int>>&grid){
+         int n=grid.size();
         int m=grid[0].size();
 
         int area=1;
-        grid[x][y]=0;
-        int dx[]={-1,0,0,1};
-         int dy[]={0,1,-1,0};
+        grid[r][c]=0;
+
+        int dr[]={0,0,1,-1};
+        int dc[]={-1,1,0,0};
 
         for(int i=0;i<4;i++){
-            int nx=x+dx[i];
-            int ny=y+dy[i];
 
-            if(nx>=0 && ny>=0 && nx<n && ny< m && grid[nx][ny]==1){
-                area+=dfs(nx,ny,grid);
+            int nr=r+dr[i];
+            int nc=c+dc[i];
+
+            if(nr>=0 && nc>=0 && nr<n && nc<m && grid[nr][nc]==1){
+                area+=dfs(nr,nc,grid);
             }
+
         }
 
         return area;
-
-
     }
     int maxAreaOfIsland(vector<vector<int>>& grid) {
+        
         int n=grid.size();
         int m=grid[0].size();
 
@@ -35,9 +36,7 @@ public:
                     ans=max(ans,dfs(i,j,grid));
                 }
             }
-
         }
-
         return ans;
     }
 };
