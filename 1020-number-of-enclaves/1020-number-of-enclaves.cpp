@@ -1,50 +1,50 @@
 class Solution {
 public:
-    void dfs(int x,int y,vector<vector<int>>&grid){
+    void dfs(int r,int c,vector<vector<int>>&grid){
         int n=grid.size();
         int m=grid[0].size();
 
-        int delx[]={0,0,-1,1};
-        int dely[]={1,-1,0,0};
+        grid[r][c]=0;
 
-        grid[x][y]=0;
+        int dr[]={0,0,-1,1};
+        int dc[]={-1,1,0,0};
 
         for(int i=0;i<4;i++){
-            int nx=x+delx[i];
-            int ny=y+dely[i];
+            int nr=r+dr[i];
+            int nc=c+dc[i];
 
-            if(nx>=0 && ny>=0 && nx<n && ny < m && grid[nx][ny]==1){
-                dfs(nx,ny,grid);
+             if (nr >= 0 && nc >= 0 && nr < n && nc < m &&
+                grid[nr][nc] == 1){
+                dfs(nr,nc,grid);
             }
         }
+
     }
     int numEnclaves(vector<vector<int>>& grid) {
+        
         int n=grid.size();
         int m=grid[0].size();
 
-
         for(int i=0;i<n;i++){
-            if(grid[i][0]==1){
+            if(grid[i][0]){
                 dfs(i,0,grid);
             }
-
-            if(grid[i][m-1]==1){
+            if(grid[i][m-1]){
                 dfs(i,m-1,grid);
             }
-
         }
 
         for(int j=0;j<m;j++){
             if(grid[0][j]==1){
                 dfs(0,j,grid);
-            }
 
+            }
             if(grid[n-1][j]==1){
                 dfs(n-1,j,grid);
             }
         }
 
-       int count=0;
+        int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==1){
