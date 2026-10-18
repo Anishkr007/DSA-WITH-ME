@@ -4,7 +4,6 @@ public:
         
         unordered_set<string>st(wordList.begin(),wordList.end());
         if(!st.count(endWord)) return 0;
-
         queue<pair<string,int>>q;
         q.push({beginWord,1});
         st.erase(beginWord);
@@ -16,6 +15,7 @@ public:
             if(word==endWord) return steps;
 
             for(int i=0;i<word.size();i++){
+                
                 char orginal=word[i];
 
                 for(char c='a';c<='z';c++){
@@ -26,6 +26,7 @@ public:
                         st.erase(word);
                     }
                 }
+
                 word[i]=orginal;
             }
         }
